@@ -1,4 +1,4 @@
-package myapp.spring
+package dev.aohara.spring
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -11,7 +11,7 @@ data class GreetingDtoV1(
     val message: String
 )
 
-@SpringBootApplication(scanBasePackages = ["myapp/spring"])
+@SpringBootApplication(scanBasePackages = ["dev/aohara/spring"])
 @RestController
 class HelloController {
 
