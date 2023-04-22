@@ -14,8 +14,7 @@ class ContractTest {
         val withToken = ClientFilters.BearerAuth("opensesame")
             .then(helloContractApi)
 
-        val request = sayHelloContract
-            .newRequest()
+        val request = sayHelloSpec.newRequest()
             .with(nameLens of "Http4k")
 
         val response = withToken(request)

@@ -10,10 +10,11 @@ class FiltersTest {
 
     @Test
     fun `test filter`() {
-        val request = Request(GET, "")
+        val request = Request(GET, "/hello/Http4k")
         val response = filteredApi(request)
 
         response.status shouldBe OK
         response.header("Foo") shouldBe "Bar"
+        greetingLens(response) shouldBe Greeting("hello Http4k")
     }
 }

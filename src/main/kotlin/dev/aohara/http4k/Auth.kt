@@ -9,14 +9,6 @@ import org.http4k.core.with
 import org.http4k.filter.ServerFilters
 import org.http4k.lens.RequestContextKey
 
-val authLookup = { token: String ->
-    when(token) {
-        "letmein" -> "user1"
-        "opensesame" -> "user2"
-        else -> null
-    }
-}
-
 val requestContexts = RequestContexts()
 val userIdLens = RequestContextKey.required<String>(requestContexts)
 
@@ -25,6 +17,14 @@ private val helloUser = { request: Request ->
 
     Response(OK)
         .with(greetingLens of Greeting("hello $userId"))
+}
+
+val authLookup: (String) -> String? = { token ->
+    when(token) {
+        "letmein" -> "user1"
+        "opensesame" -> "user2"
+        else -> null
+    }
 }
 
 val authenticatedApi = ServerFilters

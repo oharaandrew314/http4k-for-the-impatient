@@ -17,29 +17,30 @@ import org.http4k.routing.routes
 import org.http4k.server.Undertow
 import org.http4k.server.asServer
 
-val sayHelloContract = "/hello" / nameLens meta {
+val sayHelloSpec = "/hello" / nameLens meta {
     operationId = "sayHello"
     summary = "Say Hello"
 
     returning(OK, greetingLens to Greeting("hello sample"))
 } bindContract GET
 
+private val sayHello = sayHelloSpec to { name ->
+    { request ->
+        val userId = userIdLens(request)
+        val greeting = Greeting("hello $userId/$name")
+        Response(OK)
+            .with(greetingLens of greeting)
+    }
+}
+
 private val api = contract {
-    renderer = OpenApi3( // requires jackson!
+    routes += sayHello
+    security = BearerAuthSecurity(userIdLens, authLookup)
+
+    renderer = OpenApi3(
         apiInfo = ApiInfo("Hello API", "1.0.0")
     )
     descriptionPath = "openapi.json"
-
-    security = BearerAuthSecurity(userIdLens, authLookup)
-
-    routes += sayHelloContract to { name ->
-        { request ->
-            val userId = userIdLens(request)
-            val greeting = Greeting("hello $userId/$name")
-            Response(OK)
-                .with(greetingLens of greeting)
-        }
-    }
 }
 
 private val ui = swaggerUiLite {

@@ -19,18 +19,4 @@ class BasicApiTest {
         response.status shouldBe OK
         response.bodyString() shouldBe """{"message":"hello Http4k"}"""
     }
-
-    @Test
-    fun `say hello - port based`() {
-        val server = helloApi.asServer(SunHttp(0))
-        val client = JavaHttpClient()
-
-        server.start().use {
-            val request = Request(GET, "http://localhost:${server.port()}/hello/Http4k")
-
-            val response = client(request)
-            response.status shouldBe OK
-            response.bodyString() shouldBe """{"message":"hello Http4k"}"""
-        }
-    }
 }
