@@ -7,7 +7,7 @@ import org.http4k.core.Status.Companion.OK
 import org.http4k.core.Status.Companion.UNAUTHORIZED
 import org.http4k.core.then
 import org.http4k.filter.ClientFilters
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class AuthTest {
 
