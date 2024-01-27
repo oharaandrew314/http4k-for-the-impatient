@@ -7,3 +7,4 @@ plugins {
 
 include("http4k")
 include("spring")
+include("dynamodb")

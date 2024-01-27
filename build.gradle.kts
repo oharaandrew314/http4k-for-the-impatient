@@ -17,6 +17,7 @@ allprojects {
 subprojects {
     dependencies {
         implementation(platform(Http4k.bom))
+        implementation(platform("org.http4k:http4k-connect-bom:_"))
         
 
         testImplementation(kotlin("test"))
